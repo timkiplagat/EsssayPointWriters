@@ -5,6 +5,16 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Essay Point Writers - Instant Quotation</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+  (function() {
+    emailjs.init({
+      publicKey: "CxRbl4mawh2UQUt4g"  
+    });
+  })();
+</script>
+
+
 <style>
   :root{ --blue:#4DB6E2; --gold:#d4af37; --bg:#ffffff; --muted:#556; --card:#f7fbfd; }
   html,body{height:100%;margin:0;background:var(--bg);font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;}
@@ -90,11 +100,29 @@
           <option>Other</option>
         </select>
       </div>
-
+      
       <div>
-        <label for="words">Number of Words <span style="color:#d00">*</span></label>
-        <input id="words" name="words" type="text" placeholder="275 words = 1 page" required>
+        <label style="font-weight:600;">Order Type:</label><br>
+        <label><input type="radio" name="order_type" value="standard" checked> Standard (based on word count)</label><br>
+        <label><input type="radio" name="order_type" value="custom"> Custom Order</label>
       </div>
+      <div id="standard-section">
+        <label style="font-weight:600;">Number of Words <span style="color:red">*</span></label>
+        <input type="number" id="words" name="words" placeholder="275 words = 1 page" style="width:100%;padding:10px;margin-bottom:10px;">
+
+        <p><strong>Price per page:</strong> $10</p>
+        <p><strong>Total Price:</strong> <span id="total-price" style="color:#004aad;font-weight:bold;">$0</span></p>
+      </div>
+
+      <div id="custom-section" style="display:none; margin-top:10px;">
+        <label style="font-weight:600;">Describe Your Custom Order</label>
+        <textarea name="custom_details" placeholder="Describe your request, e.g., PowerPoint slides, editing, poster..." style="width:100%;height:100px;padding:10px;"></textarea>
+      </div>
+
+      <!-- Hidden total for Formspree -->
+      <input type="hidden" id="calculated_total" name="calculated_total">
+
+      
 
       <div>
         <label for="deadline">Deadline <span style="color:#d00">*</span></label>
@@ -116,16 +144,16 @@
         <p style="margin:0">Email: <strong>essaypointwriters@gmail.com</strong></p>
         <p style="margin:0">WhatsApp: <strong>+353899878435</strong></p>
       </div>
-      <!-- Client's Contact Info -->
-      <div class="full contact-info">
-        <h3 style="margin:0 0 8px 0">Your Contact Information</h3>
-      
-        <label for="client_email">Email Address <span style="color:#d00">*</span></label>
-        <input id="client_email" name="client_email" type="email" placeholder="you@example.com" required>
-      
-        <label for="client_whatsapp">WhatsApp Number (optional)</label>
-        <input id="client_whatsapp" name="client_whatsapp" type="text" placeholder="+1234567890">
-      </div>
+    <!-- 👇 Client's Contact Info -->
+    <div class="full contact-info">
+      <h3 style="margin:0 0 8px 0">Your Contact Information</h3>
+
+      <label for="client_email">Email Address <span style="color:#d00">*</span></label>
+      <input id="client_email" name="client_email" type="email" placeholder="you@example.com" required>
+
+      <label for="client_whatsapp">WhatsApp Number (optional)</label>
+      <input id="client_whatsapp" name="client_whatsapp" type="text" placeholder="+1234567890">
+    </div>
 
       <div class="full note">
         <strong>Note:</strong> You will receive quotation instantly on email.
@@ -154,6 +182,84 @@
       document.getElementById('home').scrollIntoView({behavior:'smooth'});
     });
   });
+
+  // Price calculation
+  const wordsInput = document.getElementById('words');
+  const totalDisplay = document.getElementById('total-price');
+  const hiddenTotal = document.getElementById('calculated_total');
+  const standardSection = document.getElementById('standard-section');
+  const customSection = document.getElementById('custom-section');
+  const orderTypeRadios = document.getElementsByName('order_type');
+
+  orderTypeRadios.forEach(radio => {
+    radio.addEventListener('change', () => {
+      if (radio.value === 'custom' && radio.checked) {
+        standardSection.style.display = 'none';
+        customSection.style.display = 'block';
+        totalDisplay.textContent = '$0';
+        hiddenTotal.value = 'Custom order - To be quoted';
+      } else if (radio.value === 'standard' && radio.checked) {
+        standardSection.style.display = 'block';
+        customSection.style.display = 'none';
+      }
+    });
+  });
+
+  document.addEventListener('input', () => {
+    if (wordsInput && totalDisplay && hiddenTotal) {
+      const words = parseInt(wordsInput.value) || 0;
+      const pages = words / 275;
+      const total = pages * 10;
+      const rounded = total.toFixed(2);
+      totalDisplay.textContent = `$${rounded}`;
+      hiddenTotal.value = `$${rounded}`;
+    }
+  });
+
+  // ✅ Handle EmailJS send
+  const form = document.querySelector("form");
+form.addEventListener("submit", function(event) {
+  event.preventDefault();
+
+  // Gather values
+  const service = document.getElementById("service").value;
+  const subject = document.getElementById("subject").value;
+  const level = document.getElementById("level").value;
+  const words = document.getElementById("words").value;
+  const price = document.getElementById("calculated_total").value;
+  const client_email = document.getElementById("client_email").value;
+  const client_whatsapp = document.getElementById("client_whatsapp").value;
+  const instructions = document.getElementById("instructions").value;
+
+  // ✅ Check if EmailJS initialized
+  if (!emailjs || !emailjs.send) {
+    alert("EmailJS not initialized. Please refresh and try again.");
+    return;
+  }
+
+  // ✅ Send quotation
+  emailjs.send("service_budsvu3", "template_2kqsg1h", {
+    service: service,
+    subject: subject,
+    level: level,
+    words: words,
+    price: price,
+    client_email: client_email,
+    client_whatsapp: client_whatsapp,
+    instructions: instructions
+  })
+  .then(function(response) {
+    alert("Quotation sent successfully! Please check your email.");
+    form.reset();
+    document.getElementById("total-price").textContent = "$0";
+  })
+  .catch(function(error) {
+    console.error("EmailJS failed:", error);
+    alert("Failed to send quotation. Please try again later.");
+  });
+});
+
 </script>
+
 </body>
 </html>
