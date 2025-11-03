@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Essay Point Writers - Instant Quotation</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{ --blue:#4DB6E2; --gold:#d4af37; --bg:#ffffff; --muted:#556; --card:#f7fbfd; }
+  html,body{height:100%;margin:0;background:var(--bg);font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;}
+  header{background:var(--blue);color:#012;display:flex;align-items:center;justify-content:space-between;padding:14px 20px;position:sticky;top:0;z-index:40;box-shadow:0 6px 18px rgba(0,0,0,0.08)}
+  .brand{font-weight:700;font-size:1.15rem;color:#012}
+  .hamburger{font-size:22px;background:transparent;border:none;cursor:pointer;color:#012}
+  .menu{position:absolute;right:20px;top:64px;background:white;border-radius:8px;box-shadow:0 10px 30px rgba(0,0,0,0.12);overflow:hidden;display:none;min-width:220px}
+  .menu.open{display:block}
+  .menu h4{margin:8px 12px;color:var(--muted);font-size:13px;padding-top:8px}
+  .menu a{display:block;padding:10px 14px;color:#012;text-decoration:none;border-top:1px solid #eef4f6;font-weight:600}
+  .menu a:hover{background:var(--card)}
+  .order-btn{display:inline-block;padding:8px 12px;border-radius:8px;background:linear-gradient(90deg,var(--gold),#f0c96b);color:#012;font-weight:700;margin:10px;cursor:pointer;animation: dance 1.2s infinite}
+  @keyframes dance{0%{transform:translateY(0)}50%{transform:translateY(-6px)}100%{transform:translateY(0)}}
+  main{max-width:960px;margin:26px auto;padding:0 18px;}
+  .hero-box{border:2px solid var(--blue);padding:18px;border-radius:10px;background:linear-gradient(180deg,#ffffff,#fbfeff);text-align:center}
+  .hero-box h1{margin:6px 0;font-size:1.2rem;letter-spacing:2px;color:#012}
+  .form-card{background:var(--card);border-radius:12px;padding:18px;margin-top:18px;box-shadow:0 8px 30px rgba(77,182,226,0.08)}
+  form{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px;font-weight:600}
+  input[type=text],input[type=email],input[type=date],select,textarea{width:100%;padding:10px;border:1px solid #e6f2f6;border-radius:8px;background:white;color:#012;font-size:14px}
+  textarea{min-height:110px;resize:vertical}
+  .full{grid-column:1 / -1}
+  .contact-info{margin-top:12px;padding:12px;border-radius:8px;background:white;border:1px solid #e9f5f8;color:#012}
+  .note{font-size:13px;color:var(--muted);margin-top:8px}
+  .submit-row{display:flex;gap:12px;align-items:center;justify-content:flex-end;margin-top:6px}
+  .submit-btn{background:var(--blue);color:white;border:none;padding:10px 14px;border-radius:10px;font-weight:700;cursor:pointer}
+  .submit-btn:hover{filter:brightness(.95);}
+  footer{text-align:center;color:var(--muted);margin:28px 0;font-size:14px}
+  @media (max-width:720px){form{grid-template-columns:1fr} header{padding:10px} .menu{right:12px;top:60px} .submit-row{justify-content:stretch} .submit-btn{width:100%} .order-btn{margin:8px 0}}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">Essay Point Writers</div>
+  <div style="display:flex;align-items:center;gap:10px">
+    <button class="hamburger" id="hambtn" aria-label="Open menu">☰</button>
+  </div>
+  <nav class="menu" id="menu">
+    <h4>Services</h4>
+    <a href="#home" class="navlink">Essay Writing</a>
+    <a href="#home" class="navlink">Dissertation</a>
+    <a href="#home" class="navlink">Coursework</a>
+    <a href="#home" class="navlink">Research Paper</a>
+    <a href="#home" class="navlink">Literature Review</a>
+    <a href="#home" class="navlink">Assignment</a>
+    <h4>Help</h4>
+    <a href="#home" class="navlink">About Us</a>
+    <a href="#home" class="navlink"><span class="order-btn">Order Now</span></a>
+  </nav>
+</header>
+
+<main id="home">
+  <div class="hero-box">
+    <h1>INSTANT QUOTATION</h1>
+  </div>
+
+  <div class="form-card" role="region" aria-labelledby="quotation-heading" style="margin-top:18px">
+    <h2 id="quotation-heading" style="margin:0 0 12px 0;color:#012">Get an Instant Quote</h2>
+    <form action="https://formspree.io/f/xanlzdde" method="POST" enctype="multipart/form-data">
+      <div class="full">
+        <label for="service">Type of Service Required</label>
+        <select id="service" name="service" required>
+          <option>Essay Writing</option>
+          <option>Dissertation</option>
+          <option>Project Services</option>
+          <option>Poster & Presentation</option>
+          <option>Test/Exam Related</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="subject">Subject <span style="color:#d00">*</span></label>
+        <input id="subject" name="subject" type="text" placeholder="English Literature" required>
+      </div>
+
+      <div>
+        <label for="level">Academic Level <span style="color:#d00">*</span></label>
+        <select id="level" name="level" required>
+          <option>University - Bachelor</option>
+          <option>University - Master's</option>
+          <option>Doctoral - PhD</option>
+          <option>College / A-Level</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="words">Number of Words <span style="color:#d00">*</span></label>
+        <input id="words" name="words" type="text" placeholder="275 words = 1 page" required>
+      </div>
+
+      <div>
+        <label for="deadline">Deadline <span style="color:#d00">*</span></label>
+        <input id="deadline" name="deadline" type="date" required>
+      </div>
+
+      <div class="full">
+        <label for="instructions">Paper Instructions</label>
+        <textarea id="instructions" name="instructions" placeholder="Add any instructions, topics, references, or formatting requirements"></textarea>
+      </div>
+
+      <div class="full">
+        <label for="file">Upload File (optional)</label>
+        <input id="file" name="attachment" type="file" accept=".pdf,.doc,.docx,.txt">
+      </div>
+
+      <div class="full contact-info">
+        <h3 style="margin:0 0 8px 0">Contact Information</h3>
+        <p style="margin:0">Email: <strong>essaypointwriters@gmail.com</strong></p>
+        <p style="margin:0">WhatsApp: <strong>+353899878435</strong></p>
+      </div>
+
+      <div class="full note">
+        <strong>Note:</strong> You will receive quotation instantly on email.
+      </div>
+
+      <div class="full submit-row" style="margin-top:12px">
+        <input type="hidden" name="_subject" value="New order from Essay Point Writers">
+        <button type="submit" class="submit-btn">Submit Now</button>
+      </div>
+    </form>
+  </div>
+
+  <footer style="margin-top:22px">
+    <p><strong>Essay Point Writers</strong> — delivering reliable and affordable academic help at <strong>$10 per page</strong>.</p>
+  </footer>
+</main>
+
+<script>
+  const hambtn = document.getElementById('hambtn');
+  const menu = document.getElementById('menu');
+  hambtn.addEventListener('click', ()=> menu.classList.toggle('open'));
+  document.querySelectorAll('.navlink').forEach(a=>{
+    a.addEventListener('click', (e)=>{
+      e.preventDefault();
+      menu.classList.remove('open');
+      document.getElementById('home').scrollIntoView({behavior:'smooth'});
+    });
+  });
+</script>
+</body>
+</html>
